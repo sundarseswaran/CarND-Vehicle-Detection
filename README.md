@@ -9,7 +9,7 @@ The Project
 The goals / steps of this project are the following:
 
 * Perform a Histogram of Oriented Gradients (HOG) feature extraction on a labeled training set of images and train a classifier Linear SVM classifier
-* Optionally, you can also apply a color transform and append binned color features, as well as histograms of color, to your HOG feature vector. 
+* Optionally, you can also apply a color transform and append binned color features, as well as histograms of color, to your HOG feature vector.
 * Note: for those first two steps don't forget to normalize your features and randomize a selection for training and testing.
 * Implement a sliding-window technique and use your trained classifier to search for vehicles in images.
 * Run your pipeline on a video stream (start with the test_video.mp4 and later implement on full project_video.mp4) and create a heat map of recurring detections frame by frame to reject outliers and follow detected vehicles.
@@ -17,21 +17,21 @@ The goals / steps of this project are the following:
 
 ### Project Files
 > * `line.py` -- from project 4
-> 
+>
 > * `lane_finder.py` -- from project 4
-> 
+>
 > * `lane_detection.py` -- from project 4
-> 
+>
 > * `Vehicle-Detection.ipynb` -- Jupyter Notebook, partly includes Project 4
-> 
-> * Folder `vehicles` -- Not checked in, need to be included for training 
-> 
-> * Folder `non-vehicles` -- Not checked in, need to be included for training 
-> 
+>
+> * Folder `vehicles` -- Not checked in, need to be included for training
+>
+> * Folder `non-vehicles` -- Not checked in, need to be included for training
+>
 > * `project_output.mp4`  -- Project 5 output video
-> 
+>
 > * `project_output_wLaneDetect.mp4` -- Lane Detection & Vehicle Detection combined
-> 
+>
 
 
 # Histogram of Oriented Gradients
@@ -87,9 +87,9 @@ Below are the images object by keeping all the above paramters and only varing t
 From looking at the above images it is easier to exclude HLS and HSV color spaces, with a very close look we can also exclude RGB.  From the images LUV seems to be slightly better than YCrCb, considering both these color spaces for further exploration.
 
 
-#### 3. Describe how (and identify where in your code) you trained a classifier using your selected HOG features (and color features if you used them). 
+#### 3. Describe how (and identify where in your code) you trained a classifier using your selected HOG features (and color features if you used them).
 
-From the notebook cell # 18 & 19 uses the function `extract_features` from `udacity_coursework.py` and obtains a trained classifier. Tweaking the different parameters with relevant articles settled on the color space **YCrCb** 
+From the notebook cell # 18 & 19 uses the function `extract_features` from `udacity_coursework.py` and obtains a trained classifier. Tweaking the different parameters with relevant articles settled on the color space **YCrCb**
 
 * Input Parameters
 
@@ -111,20 +111,20 @@ Test accuracy of SVC =  0.99
 ```
 
 >> `extract_features` -- extracts the HOG features based on the input parameters
->> 
+>>
 >> `get_feature_set` -- retrieves the feature set for both car images and non car images, it also scales and normalizes the feature vector
->> 
+>>
 >> `get_trained_classifier` -- splits the data into train & test samples, trains the classifier and provides an accuracy score.
->> 
->> 
+>>
+>>
 
 ### Sliding Window Search
 
 #### 1. Describe how (and identify where in your code) you implemented a sliding window search. How did you decide what scales to search and how much to overlap windows?
 
-A picture is worth thousand words, the below images shows the concept of sliding window search. A window of varing sizes is scanned through the images and the features sets are extracted to look for the object of interest. 
+A picture is worth thousand words, the below images shows the concept of sliding window search. A window of varing sizes is scanned through the images and the features sets are extracted to look for the object of interest.
 
-The sliding window algorithm provided in the coursework is used to look for feature set on the bottom portion of the image `400 to 650`. 
+The sliding window algorithm provided in the coursework is used to look for feature set on the bottom portion of the image `400 to 650`.
 
 ![Sliding Window](./examples/sliding_windows.jpg)
 
@@ -169,3 +169,11 @@ Similar to other projects, this software pipeline has not seen the real world sc
 Like explained in one of the coursework videos, the scaling (search window size) could be varied based on the distance of the expected vehicles. Use bigger windows for cars that are expected to appear closer and use smaller ones for the ones that are farther.
 
 I think this pipeline will yield poor results if the car is driving right next to a huge truck.
+
+
+### Reflection 2
+* Added post submission (late reflection :-) )
+
+The boxes are way too jumpy, probably its best to keep them smoothened out as the car moves.
+
+Also, cars from opposite direction was detected as well, probably need to figure out velocity for each identified cars.
